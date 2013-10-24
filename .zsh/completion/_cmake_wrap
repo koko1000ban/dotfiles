@@ -1,0 +1,4 @@
+_cmake_wrap(){
+  reply=(`cmake_wrap --list-actions`)
+}
+compctl -K _cmake_wrap cmake_wrap

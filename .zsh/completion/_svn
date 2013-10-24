@@ -1,0 +1,66 @@
+#compdef svn colorsvn
+
+_svn_add(){
+    local state
+    _arguments -s : \
+    '--targets[add contents of file]::file:_files' \
+    '--config-dir[read config files]::directory:_files -/' \
+    {-N,--non-recursive}'[operate on single directory only]' \
+    {-q,--quiet}'[print as little as possible]' \
+    '(--no-auto-props)--auto-props[eable automatic properties]' \
+    '(--auto-props)--no-auto-props[disable automatic properties]' \
+    '--force[force operation to run]' \
+    '*:file:->file' && return 0
+ 
+   local expl
+   case $state in
+    (file)
+    _description files expl 'files'
+    _files "$expl[@]" && return 0
+    ;;
+   esac
+   return 1
+}
+
+
+_svn_help(){
+    _arguments -s : \
+    '--config-dir[read config files]::directory:_files -/' \
+    '*:file:_svn_command'
+}
+
+
+#svnコマンドの補完
+_svn_command(){
+    local line
+    local -a cmd
+    _call_program help-command svn help \
+        | grep "^   \w" \
+        | sed "s/^   //" \
+        | sed "s/[(),]/ /g" \
+        | while read -A line;do cmd=($line $cmd)
+    done
+    _describe -t svn-command 'Subversion command' cmd
+}
+
+_svn(){
+    if ((CURRENT > 2)); then
+        #to sub command
+
+        local cmd=${words[2]}
+        
+        curcontext="${curcontext%:*:*}:svn-$cmd"
+        (( CURRENT -- ))
+
+        shift words
+        if (( $+functions[_svn_$cmd] )) then
+            _svn_$cmd
+        else
+            _files
+        fi
+    else
+        #sub command
+        _svn_command
+    fi
+}
+_svn "$@"

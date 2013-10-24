@@ -1,0 +1,20 @@
+#compdef waf
+
+# setopt XTRACE VERBOSE
+_waf(){
+    # longoptionは--helpみて補完とかしたい
+    # if [[ $words[2] = --* ]]; then
+    # fi
+
+    _arguments \
+        '(--version)--version[version information]' \
+        '(-h --help)'{-h,--help}'[help]' \
+        '(--prefix)--prefix[where brew lives on this system]' \
+        '(--cache)--cache[brew cache]' \
+        '*:: :->subcmds' && return 0
+    
+    
+}
+
+
+compdef _waf waf

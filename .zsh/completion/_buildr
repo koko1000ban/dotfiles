@@ -1,0 +1,20 @@
+#compdef buildr
+
+_buildr_does_task_list_need_generating () {
+  if [[ ! -f .buildr_tasks ]]; then return 0;
+  else
+    return $([[ buildfile -nt .buildr_tasks ]])
+  fi
+}
+
+_buildr () {
+  if [[ -f buildfile ]]; then
+    if _buildr_does_task_list_need_generating; then
+      echo "\nGenerating .buildr_tasks..." >&2
+      buildr --silent --tasks | cut -d " " -f 2 >| .buildr_tasks
+    fi
+    compadd $(<.buildr_tasks)
+  fi
+}
+
+_buildr

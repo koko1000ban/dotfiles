@@ -1,0 +1,15 @@
+#compdef cheat
+
+completion_list () {
+  mkdir -p ~/.zsh/completion
+  if [ ! -f ~/.zsh/completion/$*[-1] ]; then
+    eval $*[1,-2] | sed -e 's/^/compadd /g' > ~/.zsh/completion/$*[-1]
+  fi
+
+  `cat ~/.zsh/completion/$*[-1]`
+}
+
+_cheat(){
+  completion_list 'cheat sheets | grep -v All' _cheat
+}
+_cheat "$@"

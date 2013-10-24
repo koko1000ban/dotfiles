@@ -1,0 +1,113 @@
+[user]
+	email = koko1000ban@gmail.com
+	name = tabito ohtani
+
+[core]
+	pager = "lv -c"
+  editor = vim
+  autocrlf = input #CRLFを自動変換
+	precomposeunicode = true
+
+[alias]
+  s = status
+  st = status
+  ci = commit
+  cam = commit -a --amend #直前のコミットを修正
+  co = checkout
+  up = pull --rebase
+  br = branch
+  ba = branch -a
+  bm = branch --merged
+  bn = branch --no-merged
+
+  pl = pull
+  ps = push origin master
+  di = diff
+  url = config --get remote.origin.url
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+  ranking = shortlog -s -n --no-merges
+  d1 = diff HEAD^
+  d2 = diff HEAD^^
+  d3 = diff HEAD^^^
+  d4 = diff HEAD^^^^
+  d5 = diff HEAD^^^^^
+  d10 = diff HEAD^^^^^^^^^^
+  newly =  log HEAD@{1}..HEAD --reverse
+  newlyp = log HEAD@{1}..HEAD -p --reverse
+  graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%cn] %Cgreen%d%Creset %s\" --all --date=short
+  #log
+  wc = whatchanged         # logに変更されたファイルも一緒に出す
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  ls = log --stat
+  la = log --pretty=\"format:%ad %h (%an): %s\" --date=short  # ざっくりログ出す
+  ranking = shortlog -s -n --no-merges
+  # logをtree表示
+  log-graph = log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s'
+  lal = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
+  tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
+
+  # mergeの際にconflictが起きたファイルを編集
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  # mergeの際にconflictが起きたファイルをadd
+  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+
+  delete-merged-branches = !git branch --merged | grep -v 'develop' | grep -v 'master' | grep -v \\* | xargs -I % git branch -d %
+
+  publish-master = !git checkout develop && git pull --rebase && git checkout -b release/$1 develop && git checkout master && git merge --no-ff release/$1
+
+  testing = !echo $1 && echo arg2='$2' && echo args=$@ && echo bar
+
+  cancel = !git commit -a -m 'temporary commit for cancel' && git reset --hard HEAD~
+  fetch-pulls = fetch ghe +refs/pull/*:refs/remotes/pull/*
+
+[color]
+    ui = auto
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    grep = auto
+
+[merge]
+	# tool = extgitdiff
+	# external = extgitdiff
+	# tool = araxis
+	# external = extgitdiff
+  # tool = diffmerge
+  tool = p4merge
+
+  keepBackup = false
+  keepTemporaries = false
+  trustExitCode = false
+
+[diff]
+  tool = araxis
+  # tool = diffmerge
+
+[giggle]
+	main-window-maximized = false
+	main-window-geometry = 1517x929+1418+18
+	history-view-vpane-position = 601
+	file-view-vpane-position = 630
+	main-window-view = HistoryView
+	file-view-hpane-position = 270
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+
+[mergetool "sourcetree"]
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+	trustExitCode = true
+
+[mergetool "p4merge"]
+        path = p4merge
+        keepTemporaries = false
+        trustExitCode = false
+
+[difftool "diffmerge"]
+	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+
+[mergetool "diffmerge"]
+	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""

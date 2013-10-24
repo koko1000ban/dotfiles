@@ -1,0 +1,79 @@
+#compdef dmd rdmd
+
+# (( $+functions[_dmd] )) ||
+function _dmd()
+{
+typeset -A opt_args
+local context state line args
+
+if [[ $service == rdmd ]]; then
+  args=(
+    '--build-only[just build the executable, do not run it]'
+    '--chatty[write dmd commands to stdout before executing them]'
+    '--compiler=+[use the specified compiler (e.g. gdmd) instead of dmd]'
+    '--dry-run[do not compile, just show what commands would be run(implies --chatty)]'
+    '--eval=+[evaluate code à la perl -e (multiple --eval allowed)]'
+    '--force[force a rebuild even if apparently not necessary]'
+    '--loop[assume \"foreach (line; stdin.byLine()) \{ ... \}\" for eval]'
+    '--help[this message]'
+    '--main[add a stub main program to the mix (e.g. for unittesting)]'
+    '--man[open web browser on manual page]'
+    '--shebang[rdmd is in a shebang line (put as first argument)]')
+else
+  args=(
+    '(-od- -of-)-o\-[do not write object file]'
+    '(-o\-)-od+:write object & library files to directory objdir:_files -/'
+    '(-o\-)-of+:name output file to filename:_files')
+fi
+
+_arguments \
+  '-c[do not link]' \
+  '-cov[do code coverage analysis]' \
+  '-D[generate documentation]' \
+  '-Dd+:write documentation file to docdir directory:_files -/' \
+  '-Df+:write documentation file to filename:_files' \
+  '-d[allow deprecated features]' \
+  '-debug[compile in debug code]' \
+  '-debug=+[compile in debug code <= level or identified by ident]' \
+  '-debuglib=+[set symbolic debug library to name]' \
+  '-defaultlib=+[set default library to name]' \
+  '-deps=+[write module dependencies to filename]' \
+  '-dylib[generate dylib]' \
+  '-g[add symbolic debug info]' \
+  '-gc[add symbolic debug info, pretend to be C]' \
+  '-H[generate 'header' file]' \
+  '-Hd+:write 'header' file to directory:_files -/' \
+  '-Hf+:write 'header' file to filename:_files' \
+  '--help[print help]' \
+  '*-I+:where to look for imports:_files -/' \
+  '-ignore[ignore unsupported pragmas]' \
+  '-inline[do function inlining]' \
+  '*-J+:where to look for string imports:_files -/' \
+  '*-L+[pass linkerflag to link]' \
+  '-lib[generate library rather than object files]' \
+  '-man[open web browser on manual page]' \
+  '-map[generate linker .map file]' \
+  '-noboundscheck[turns off array bounds checking for all functions]' \
+  '-nofloat[do not emit reference to floating point]' \
+  '-O[optimize]' \
+  '-op[do not strip paths from source file]' \
+  '-profile[profile runtime performance of generated code]' \
+  '-quiet[suppress unnecessary messages]' \
+  '-release[compile release version]' \
+  '-run[srcfile args... run resulting program, passing args]' \
+  '-unittest[compile in unit tests]' \
+  '-v[verbose]' \
+  '-version=+[compile in version code >= level or identified by ident]:argument:(
+    DigitalMars X86 X86_64 Windows Win32 Win64 linux Posix LittleEndian BigEndian
+    D_Coverage D_Ddoc D_InlineAsm_X86 D_InlineAsm_X86_64 D_LP64 D_PIC unittest
+    D_Version2 none all)' \
+  '-vtls[list all variables going into thread local storage]' \
+  '-w[enable warnings]' \
+  '-wi[enable informational warnings]' \
+  '-X[generate JSON file]' \
+  '-Xf+:write JSON file to filename:_files' \
+  $args[@] \
+  '*:file:_files -g "*.(a|d|di|ddoc|dll|dylib|lib|map|o|so)(-.)"'
+}
+
+_dmd

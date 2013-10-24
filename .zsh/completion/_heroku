@@ -1,0 +1,72 @@
+#compdef heroku
+
+local state ret=1
+local -a cmds
+cmds=(
+	"version:show the gem version" \
+	"list:list your apps" \
+	"create:create a new app" \
+	"keys:show your user's public keys" \
+	"keys\:add:add a public key" \
+	"keys\:remove:remove a key by name (user@host)" \
+	"keys\:clear:remove all keys" \
+	"info:show app info, like web url and git repo" \
+	"open:open the app in a web browser" \
+	"rename:rename the app" \
+	"dynos:scale to qty web processes" \
+	"workers:scale to qty background processes" \
+	"ps:show process list" \
+	"sharing\:add:add a collaborator" \
+	"sharing\:remove:remove a collaborator" \
+	"sharing\:transfer:transfers the app ownership" \
+	"domains\:add:add a custom domain name" \
+	"domains\:remove:remove a custom domain name" \
+	"domains\:clear:remove all custom domains" \
+	"ssl\:add:add SSL cert to the app" \
+	"ssl\:remove:removes SSL cert from the app domain" \
+	"ssl\:clear:remove all SSL certs from the app" \
+	"rake:remotely execute a rake command" \
+	"console:remotely execute a single console command" \
+	"console:start an interactive console to the remote app" \
+	"restart:restart app servers" \
+	"logs:fetch recent log output for debugging" \
+	"logs\:cron:fetch cron log output" \
+	"maintenance\:on:put the app into maintenance mode" \
+	"maintenance\:off:take the app out of maintenance mode" \
+	"config:display the app's config vars (environment)" \
+	"config\:add:add one or more config vars" \
+	"config\:remove:remove one or more config vars" \
+	"config\:clear:clear user-set vars and reset to default" \
+	"stack:show current stack and list of available stacks" \
+	"stack\:migrate:prepare migration of this app to a new stack" \
+	"db\:pull:pull the app's database into a local database" \
+	"db\:push:push a local database into the app's remote database" \
+	"db\:reset:reset the database for the app" \
+	"bundles:list bundles for the app" \
+	"bundles\:capture:capture a bundle of the app's code and data" \
+	"bundles\:download:download most recent app bundle as a tarball" \
+	"bundles\:download:download the named bundle" \
+	"bundles\:destroy:destroy the named bundle" \
+	"addons:list installed addons" \
+	"addons\:info:list all available addons" \
+	"addons\:add:install addon (with zero or more config vars)" \
+	"addons\:remove name:uninstall an addons" \
+	"addons\:clear:uninstall all addons" \
+	"destroy:destroy the app permanently" \
+	"plugins:list installed plugins" \
+	"plugins\:install:install the plugin from the specified git url" \
+	"plugins\:uninstall:remove the specified plugin" \
+)
+
+_arguments \
+"(-)1: :->cmds" \
+'*: :->args' && ret=0
+
+case $state in
+  cmds)
+    _describe -t commands 'heroku command' cmds && ret=0
+  ;;
+  args)
+  ;;
+esac
+return ret

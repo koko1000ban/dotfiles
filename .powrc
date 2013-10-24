@@ -1,0 +1,13 @@
+if [ -f "$rvm_path/scripts/rvm" ] && [ -f ".rvmrc" ]; then
+  source "$rvm_path/scripts/rvm"
+  source ".rvmrc"
+fi
+
+if [[ -f /opt/boxen/env.sh ]] ; then
+  source /opt/boxen/env.sh
+fi
+
+if [[ -s $BOXEN_HOME/rbenv/bin ]] ; then
+  rbenv local 1.9.3-p448
+  echo "ruby is "`rbenv version | sed -e 's/ .*//'`
+fi
