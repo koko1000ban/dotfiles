@@ -1,6 +1,6 @@
 bindkey -e
 
-for file in env alias options antigen complete func git history ulimit; do
+for file in env options antigen complete func git history ulimit alias; do
     echo "$file.zsh load start..."
 
     [ -f ~/.zsh/$file.zsh ]; source ~/.zsh/$file.zsh
