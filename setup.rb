@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 
 DEBUG = ARGV.first == "--dry-run"
+DOTFILES_DIR = File.expand_path("../", __FILE__)
+
+Dir.chdir DOTFILES_DIR
 
 d = Dir
     .glob('*',File::FNM_DOTMATCH)
