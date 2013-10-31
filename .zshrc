@@ -1,5 +1,7 @@
 bindkey -e
 
+[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+
 for file in env options antigen complete func git history ulimit alias; do
     echo "$file.zsh load start..."
 
@@ -84,4 +86,4 @@ if [ "$P_PROC" = sshd: ]; then
 fi
 
 [[ $EMACS = t ]] && unsetopt zle
-source /usr/local/etc/profile.d/z.sh
+source `brew --prefix`/etc/profile.d/z.sh

@@ -2,7 +2,7 @@
 export TZ='Asia/Tokyo'
 export LANG=ja_JP.UTF-8
 
-PATH=$HOME/repos/bin
+PATH=$HOME/repos/bin:$PATH
 PATH=$PATH:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
 PATH=$PATH:/usr/local/share/npm/bin
 PATH=$PATH:/usr/local/heroku/bin
@@ -139,7 +139,7 @@ fi
 #     export PATH=$HOME/perl5/bin:$PATH
 # fi
 
-export EDITOR=s
+export EDITOR=subl
 export PAGER=less
 export MANPATH=~/local/man:/opt/local/man:/opt/local/share/man:/usr/local/share/man:/usr/share/man:$MANPATH
 
