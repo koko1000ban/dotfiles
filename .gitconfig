@@ -6,8 +6,9 @@
 	pager = "lv -c"
   editor = vim
   autocrlf = input #CRLFを自動変換
-	precomposeunicode = true
-	excludesfile = ~/.gitignore
+  precomposeunicode = true
+  excludesfile = /opt/boxen/config/git/gitignore
+  attributesfile = ~/.gitattributes_global
 
 [alias]
   s = status
@@ -99,7 +100,7 @@
 	path = 
 
 [mergetool "sourcetree"]
-	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+	cmd = /Users/tabi/Library/Application Support/SourceTree/SourceTree 1.7.3/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 
 [mergetool "p4merge"]
@@ -112,3 +113,9 @@
 
 [mergetool "diffmerge"]
 	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+
+[credential]
+helper = /opt/boxen/bin/boxen-git-credential
+
+[hub]
+protocol = https

@@ -83,6 +83,8 @@ end
 
 # for Rails 3.2+
 if defined?(Rails) && Rails.env
+  require "rails/console/app"
+  require "rails/console/helpers"
   extend Rails::ConsoleMethods
 end
 

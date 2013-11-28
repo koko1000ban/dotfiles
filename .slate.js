@@ -149,9 +149,9 @@ S.bnda({
 
   // Basic Location Bindings
   "pad0:ctrl" : lapChat,
-  "[:ctrl" : lapChat,
+  //"[:ctrl" : lapChat,
   "pad.:ctrl" : lapMain,
-  "]:ctrl" : lapMain,
+  //"]:ctrl" : lapMain,
   "pad1:ctrl" : tboltLLeftBot,
   "pad2:ctrl" : tboltLMidBot,
   "pad3:ctrl" : tboltLRightBot,
@@ -179,9 +179,9 @@ S.bnda({
   "left:ctrl" : S.op("resize", { "width" : "-10%", "height" : "+0" }),
   "up:ctrl" : S.op("resize", { "width" : "+0", "height" : "-10%" }),
   "down:ctrl" : S.op("resize", { "width" : "+0", "height" : "+10%" }),
-  "right:alt" : S.op("resize", { "width" : "-10%", "height" : "+0", "anchor" : "bottom-right" }),
-  "left:alt" : S.op("resize", { "width" : "+10%", "height" : "+0", "anchor" : "bottom-right" }),
-  "up:alt" : S.op("resize", { "width" : "+0", "height" : "+10%", "anchor" : "bottom-right" }),
+  //"right:alt" : S.op("resize", { "width" : "-10%", "height" : "+0", "anchor" : "bottom-right" }),
+  //"left:alt" : S.op("resize", { "width" : "+10%", "height" : "+0", "anchor" : "bottom-right" }),
+  //"up:alt" : S.op("resize", { "width" : "+0", "height" : "+10%", "anchor" : "bottom-right" }),
   //"down:alt" : S.op("resize", { "width" : "+0", "height" : "-10%", "anchor" : "bottom-right" }),
   //"down:alt" : S.op("resize", { "width" : "screenSizeX/2", "height" : "screenSizeY/2", "anchor" : "bottom-right" }),
 
@@ -192,31 +192,30 @@ S.bnda({
   "up:alt;cmd" : S.op("push", { "direction" : "up", "style" : "bar-resize:screenSizeY/2" }),
   "down:alt;cmd" : S.op("push", { "direction" : "down", "style" : "bar-resize:screenSizeY/2" }),
 
-  "right:alt;ctrl;cmd" : S.op("move", {
-    "x" : "screenSizeX/2",
-    "y" : "screenOriginY",
-    "width" : "screenSizeX/2",
-    "height" : "screenSizeY/2"
-   }),
-  "down:alt;ctrl;cmd" : S.op("move", {
-    "x" : "screenSizeX/2",
-    "y" : "screenSizeY/2",
-    "width" : "screenSizeX/2",
-    "height" : "screenSizeY/2"
-   }),
-  "up:alt;ctrl;cmd" : S.op("move", {
-    "x" : "screenOriginX",
-    "y" : "screenOriginY",
-    "width" : "screenSizeX/2",
-    "height" : "screenSizeY/2"
-   }),
-  "left:alt;ctrl;cmd" : S.op("move", {
-    "x" : "screenOriginX",
-    "y" : "screenSizeY/2",
-    "width" : "screenSizeX/2",
-    "height" : "screenSizeY/2"
-   }),
-
+  "right:alt;ctrl;cmd" : S.op("corner", {
+    "direction" : "top-right",
+    "style" : "resize:screenSizeX/2;screenSizeY/2",
+    'width' : 'screenSizeX/2',
+    'height' : 'screenSizeY/2'
+  }),
+  "left:alt;ctrl;cmd" : S.op("corner", {
+    "direction" : "bottom-left",
+    "style" : "resize:screenSizeX/2;screenSizeY/2",
+    'width' : 'screenSizeX/2',
+    'height' : 'screenSizeY/2'
+  }),
+  "up:alt;ctrl;cmd" : S.op("corner", {
+    "direction" : "top-left",
+    "style" : "resize:screenSizeX/2;screenSizeY/2",
+    'width' : 'screenSizeX/2',
+    'height' : 'screenSizeY/2'
+  }),
+  "down:alt;ctrl;cmd" : S.op("corner", {
+    "direction" : "bottom-right",
+    "style" : "resize:screenSizeX/2;screenSizeY/2",
+    'width' : 'screenSizeX/2',
+    'height' : 'screenSizeY/2'
+  }),
   "f:cmd;alt" : S.op("move", {
     "x" : "screenOriginX",
     "y" : "screenOriginY",
@@ -240,20 +239,36 @@ S.bnda({
   "up:ctrl;alt;cmd" : S.op("throw", { "screen" : "up", "width" : "screenSizeX", "height" : "screenSizeY" }),
   "down:ctrl;alt;cmd" : S.op("throw", { "screen" : "down", "width" : "screenSizeX", "height" : "screenSizeY" }),
 
+  "left:cmd" : S.op("move", {
+  "screen" : "0",
+  "x" : "screenOriginX",
+  "y" : "screenOriginY",
+  "width" : "screenSizeX",
+  "height" : "screenSizeY"
+  }),
+  "right:cmd" : S.op("move", {
+  "screen" : "1",
+  "x" : "screenOriginX",
+  "y" : "screenOriginY",
+  "width" : "screenSizeX",
+  "height" : "screenSizeY"
+  }),
   // Focus Bindings
   // NOTE: some of these may *not* work if you have not removed the expose/spaces/mission control bindings
-  "l:cmd" : S.op("focus", { "direction" : "right" }),
-  "h:cmd" : S.op("focus", { "direction" : "left" }),
-  "k:cmd" : S.op("focus", { "direction" : "up" }),
-  "j:cmd" : S.op("focus", { "direction" : "down" }),
-  "k:cmd;alt" : S.op("focus", { "direction" : "behind" }),
-  "j:cmd;alt" : S.op("focus", { "direction" : "behind" }),
-  "right:cmd" : S.op("focus", { "direction" : "right" }),
-  "left:cmd" : S.op("focus", { "direction" : "left" }),
-  "up:cmd" : S.op("focus", { "direction" : "up" }),
-  "down:cmd" : S.op("focus", { "direction" : "down" }),
-  "up:cmd;alt" : S.op("focus", { "direction" : "behind" }),
-  "down:cmd;alt" : S.op("focus", { "direction" : "behind" }),
+  // "l:cmd" : S.op("focus", { "direction" : "right" }),
+  // "h:cmd" : S.op("focus", { "direction" : "left" }),
+  // "k:cmd" : S.op("focus", { "direction" : "up" }),
+  // "j:cmd" : S.op("focus", { "direction" : "down" }),
+  // "k:cmd;alt" : S.op("focus", { "direction" : "behind" }),
+  // "j:cmd;alt" : S.op("focus", { "direction" : "behind" }),
+  // "right:cmd" : S.op("focus", { "direction" : "right" }),
+  // //"left:cmd" : S.op("focus", { "direction" : "left" }),
+  // "left:cmd" : tboltLFull,
+  // "right" : tboltRFull,
+  // "up:cmd" : S.op("focus", { "direction" : "up" }),
+  // "down:cmd" : S.op("focus", { "direction" : "down" }),
+  // "up:cmd;alt" : S.op("focus", { "direction" : "behind" }),
+  // "down:cmd;alt" : S.op("focus", { "direction" : "behind" }),
 
   // Window Hints
   "esc:cmd" : S.op("hint"),

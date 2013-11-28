@@ -10,6 +10,8 @@ for file in env options antigen complete func git history ulimit alias; do
     echo "$file.zsh load end"
 done
 
+source ~/.zsh/zsh-bundle-exec.zsh
+
 #keybind
 #Deleteキーで〜出ちゃうのを回避
 bindkey "^?"    backward-delete-char
