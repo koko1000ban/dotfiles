@@ -1,6 +1,8 @@
 bindkey -e
 
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+#after boxen
+unalias git
 
 for file in env options antigen complete func git history ulimit alias; do
     echo "$file.zsh load start..."

@@ -31,7 +31,11 @@ zstyle ':completion:*:approximate:*' max-errors 1 numeric
 
 
 #completion
+fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 fpath=($HOME/.zsh/completion $fpath)
+
+echo $fpath
+
 autoload -U $HOME/.zsh/completion/*(:t)
 autoload -U compinit
 compinit -u
@@ -153,7 +157,6 @@ compdef _rake rake
 
 # autoload bashcompinit
 # bashcompinit
-# source ~/.zsh/completion/git-completion.bash
-
+#source ~/.zsh/completion/git-completion.bash
 source ~/.zsh/completion/_cmake_wrap
 source ~/.zsh/completion/git-now-completion.zsh
