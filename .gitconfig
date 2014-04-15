@@ -3,7 +3,7 @@
 	name = tabito ohtani
 
 [core]
-	pager = "lv -c"
+  pager = "lv -c"
   editor = vim
   autocrlf = input #CRLFを自動変換
   precomposeunicode = true

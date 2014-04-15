@@ -17,6 +17,8 @@ alias x='xargs'
 alias f='find'
 alias -g T="|tail"
 
+alias bn="bundle"
+
 alias g++0x="g++ -std=c++0x -Wall -Wextra"
 
 alias dirsizeall="du -hx --max-depth=1 | sort -t 1 -n"

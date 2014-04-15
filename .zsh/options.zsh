@@ -11,6 +11,9 @@ setopt COMPLETE_IN_WORD
 #history append
 setopt append_history
 
+#disable autocorrect
+unsetopt correct_all
+
 #auto_cd
 setopt auto_cd
 

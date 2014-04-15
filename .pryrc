@@ -86,6 +86,10 @@ if defined?(Rails) && Rails.env
   require "rails/console/app"
   require "rails/console/helpers"
   extend Rails::ConsoleMethods
+
+  def debug_find_asset_path(path)
+    ActionView::Base.new.asset_path(path)
+  end
 end
 
 # refs: https://github.com/pry/pry/wiki/FAQ#wiki-awesome_print

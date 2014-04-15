@@ -111,7 +111,7 @@ case ${UID} in
         # PROMPT="%(?.%{$bg[green]%}.%{$bg[blue]%})%(?!(._.)/!(;_;%)?) %B%~$%b%{${reset_color}%} "
         # PROMPT="%(?.%{$bg[green]%}.%{$bg[blue]%})%(?!(._.)/!(;_;%)?)${reset_color}${vcs_info_msg_0_}%{${fg[yellow]}%}%~%%%{$reset_color%} "
 
-        setopt correct
+        #setopt correct
         # PROMPT=$'${vcs_info_msg_0_}%{${fg[yellow]}%}%~%%%{$reset_color%}\n '
         # PROMPT2="%{$bg[blue]%}%_>%{$reset_color%}%b "
         # SPROMPT="%{$bg[red]%}%{$suggest%}(._.%)? %B %r is correct? [n,y,a,e]:%{${reset_color}%}%b "

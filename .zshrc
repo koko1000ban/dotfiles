@@ -89,5 +89,10 @@ if [ "$P_PROC" = sshd: ]; then
     exit
 fi
 
+eval "$(direnv hook zsh)"
+
 [[ $EMACS = t ]] && unsetopt zle
 source `brew --prefix`/etc/profile.d/z.sh
+
+# autocorrect
+setopt nocorrectall;

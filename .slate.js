@@ -53,6 +53,35 @@ var tboltRMidBot = tboltRMidTop.dup({ "y" : "screenOriginY+screenSizeY/2" });
 var tboltRRightTop = tboltRRight.dup({ "height" : "screenSizeY/2" });
 var tboltRRightBot = tboltRRightTop.dup({ "y" : "screenOriginY+screenSizeY/2" });
 
+// http://yohasebe.com/wp/archives/3513
+// for tiling windows of focused app onto desktop
+// (2 x 2, clockwise)
+
+var topLeft = slate.operation("corner", {
+  "direction" : "top-left",
+  "width"  : "screenSizeX/2",
+  "height" : "screenSizeY/2"
+});
+
+var topRight = slate.operation("corner", {
+  "direction" : "top-right",
+  "width"  : "screenSizeX/2",
+  "height" : "screenSizeY/2"
+});
+
+var bottomRight = slate.operation("corner", {
+  "direction" : "bottom-right",
+  "width"  : "screenSizeX/2",
+  "height" : "screenSizeY/2"
+});
+
+var bottomLeft = slate.operation("corner", {
+  "direction" : "bottom-left",
+  "width"  : "screenSizeX/2",
+  "height" : "screenSizeY/2"
+});
+
+
 // common layout hashes
 var lapMainHash = {
   "operations" : [lapMain],
@@ -141,6 +170,57 @@ var universalLayout = function() {
   }
 };
 
+var resize = function (width, height, anchor) {
+    // if (typeof anchor === 'undefined') anchor = 'top-left';
+    opts = {
+      'width' : width,
+      'height' : height
+    };
+    if (typeof anchor !== 'undefined') {
+      opts.anchor = anchor;
+    }
+
+    return slate.operation('resize', opts);
+};
+
+var nudge = function (x, y) {
+    return slate.operation('nudge', {
+        'x' : x,
+        'y' : y
+    });
+};
+
+var focus = function (app_name) {
+    return slate.operation('focus', {'app' : app_name});
+};
+
+var chain = function(actions) {
+    return slate.operation('chain', {'operations' : actions});
+};
+
+var half_push = function(direction) {
+    return slate.operation('push', {
+        'direction' : direction,
+        'style' : 'bar-resize:screenSizeX/2'
+    });
+};
+
+var half_top = function(direction) {
+    return slate.operation('corner', {
+        'direction' : 'top-'+direction,
+        'width' : 'screenSizeX/2',
+        'height' : 'screenSizeY/2'
+    });
+};
+
+var half_bottom = function(direction) {
+    return slate.operation('corner', {
+        'direction' : 'bottom-'+direction,
+        'width' : 'screenSizeX/2',
+        'height' : 'screenSizeY/2'
+    });
+};
+
 // Batch bind everything. Less typing.
 S.bnda({
   // Layout Bindings
@@ -175,10 +255,10 @@ S.bnda({
 
   // Resize Bindings
   // NOTE: some of these may *not* work if you have not removed the expose/spaces/mission control bindings
-  "right:ctrl" : S.op("resize", { "width" : "+10%", "height" : "+0" }),
-  "left:ctrl" : S.op("resize", { "width" : "-10%", "height" : "+0" }),
-  "up:ctrl" : S.op("resize", { "width" : "+0", "height" : "-10%" }),
-  "down:ctrl" : S.op("resize", { "width" : "+0", "height" : "+10%" }),
+  // "right:ctrl" : S.op("resize", { "width" : "+10%", "height" : "+0" }),
+  // "left:ctrl" : S.op("resize", { "width" : "-10%", "height" : "+0" }),
+  // "up:ctrl" : S.op("resize", { "width" : "+0", "height" : "-10%" }),
+  // "down:ctrl" : S.op("resize", { "width" : "+0", "height" : "+10%" }),
   //"right:alt" : S.op("resize", { "width" : "-10%", "height" : "+0", "anchor" : "bottom-right" }),
   //"left:alt" : S.op("resize", { "width" : "+10%", "height" : "+0", "anchor" : "bottom-right" }),
   //"up:alt" : S.op("resize", { "width" : "+0", "height" : "+10%", "anchor" : "bottom-right" }),
@@ -224,10 +304,21 @@ S.bnda({
 
   // Nudge Bindings
   // NOTE: some of these may *not* work if you have not removed the expose/spaces/mission control bindings
-  "right:ctrl;alt" : S.op("nudge", { "x" : "+10%", "y" : "+0" }),
-  "left:ctrl;alt" : S.op("nudge", { "x" : "-10%", "y" : "+0" }),
-  "up:ctrl;alt" : S.op("nudge", { "x" : "+0", "y" : "-10%" }),
-  "down:ctrl;alt" : S.op("nudge", { "x" : "+0", "y" : "+10%" }),
+  // "right:ctrl;alt" : S.op("nudge", { "x" : "+10%", "y" : "+0" }),
+  // "left:ctrl;alt" : S.op("nudge", { "x" : "-10%", "y" : "+0" }),
+  // "up:ctrl;alt" : S.op("nudge", { "x" : "+0", "y" : "-10%" }),
+  // "down:ctrl;alt" : S.op("nudge", { "x" : "+0", "y" : "+10%" }),
+  // "right:ctrl;alt" : S.op("resize", { "width" : "+10%", "height" : "+0" }),
+  // "right:ctrl;alt" : chain(resize('+10%', '+0'), nudge('+10%', '+0')),
+  // "right:ctrl;alt" : chain([nudge('-10%', '+0'), resize('+10%', '+0')]),
+  "right:ctrl;alt" : S.op("move", {
+    'x' : 'windowTopLeftX', 'y' : 'windowTopLeftY', 'width' : "windowSizeX+ windowSizeX / 10", 'height' : 'windowSizeY'
+  }),
+  "left:ctrl;alt" : S.op("move", {
+    'x' : 'windowTopLeftX - (windowSizeX / 10)', 'y' : 'windowTopLeftY', 'width' : "windowSizeX+ windowSizeX / 10", 'height' : 'windowSizeY'
+  }),
+  "up:ctrl;alt" : S.op("resize", { "width" : "+0", "height" : "-10%" }),
+  "down:ctrl;alt" : S.op("resize", { "width" : "+0", "height" : "+10%" }),
 
   // Throw Bindings
   // NOTE: some of these may *not* work if you have not removed the expose/spaces/mission control bindings
@@ -278,6 +369,21 @@ S.bnda({
 
   // Grid
   "esc:ctrl" : S.op("grid")
+});
+
+var tileKey = "t:ctrl;alt;cmd";
+
+slate.bind(tileKey, function(win){
+  var appName = win.app().name();
+  var tiled = {};
+  tiled[appName] = {
+    "operations" : [topLeft, topRight, bottomRight, bottomLeft],
+    "main-first" : true,
+    "repeat"     : true
+  };
+  var tiledLayout = slate.layout("tiledLayout", tiled);
+  slate.operation("layout", {"name" : tiledLayout }).run();
+  slate.operation("show", {"app" : appName}).run();
 });
 
 // Test Cases
