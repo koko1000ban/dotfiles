@@ -7,7 +7,7 @@
   editor = vim
   autocrlf = input #CRLFを自動変換
   precomposeunicode = true
-  excludesfile = /opt/boxen/config/git/gitignore
+	excludesfile = /opt/boxen/config/git/gitignore
   attributesfile = ~/.gitattributes_global
 
 [alias]
@@ -100,7 +100,7 @@
 	path = 
 
 [mergetool "sourcetree"]
-	cmd = /Users/tabi/Library/Application Support/SourceTree/SourceTree 1.7.3/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 
 [mergetool "p4merge"]
