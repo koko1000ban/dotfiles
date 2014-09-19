@@ -126,3 +126,41 @@ function contextual_rake() {
     IFS=$oldifs
 }
 alias rk=contextual_rake
+
+#########
+# percol utils
+##########
+
+# inspired http://qiita.com/hfm/items/ad1641225991d56373d2
+function gh-browse-rev() {
+  git log --format="%ai  %an  %h  %d %s" | percol | awk 'match($0,/[[:blank:]]{2}[a-z0-9]{7}[[:blank:]]{2}/)  { print substr($0, RSTART, RLENGTH) }' | xargs echo -n | xargs -I{} gh browse commit/{}
+}
+
+function percol_select_directory() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    local dest=$(_z -r 2>&1 | eval $tac | percol --query "$LBUFFER" | awk '{ print $2 }')
+    if [ -n "${dest}" ]; then
+        cd ${dest}
+    fi
+    zle reset-prompt
+}
+zle -N percol_select_directory
+bindkey "^X^J" percol_select_directory
+
+# process kill
+function peco-pkill() {
+  for pid in `ps aux | percol | awk '{ print $2 }'`
+  do
+    kill $pid
+    echo "Killed ${pid}"
+  done
+}
+zle -N peco-pkill
+bindkey "^X^K" peco-pkill
+
+alias pk="peco-pkill"
