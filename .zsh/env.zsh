@@ -173,14 +173,22 @@ Darwin)
     export PATH=$PATH:$GOPATH/bin
 
     ## homebrew iru??
-    # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:$HOME/local/lib
-    # export DYLD_FALLBACK_LIBRARY_PATH=$LD_LIBRARY_PATH
+    export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/lib:$HOME/local/lib
+    export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_LIBRARY_PATH
+    export LIBRARY_PATH=$LIBRARY_PATH:/opt/boxen/homebrew/lib/
 
     export TMPDIR=/tmp
 
     # export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
     export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home
 
+    LUAROCKS_CONFIG=$HOME/repos/lang/lua/rocks_config.lua
+    export LUAROCKS_CONFIG
+
+    #export LUA_PATH="/opt/boxen/homebrew/share/lua/5.1/?.lua;/opt/boxen/homebrew/Cellar/lua/5.1.5/lib/?.lua;/usr/local/lib/lua/5.1/?.lua;/usr/local/share/lua/5.1/?.lua;;"
+    export LUA_PATH="/opt/boxen/homebrew/share/lua/5.1/luarocks/share/lua/5.1/?.lua;/opt/boxen/homebrew/share/lua/5.1/luarocks/share/lua/5.1/?/init.lua;/opt/boxen/homebrew/share/lua/5.1/?.lua;/opt/boxen/homebrew/Cellar/lua/5.1.5/lib/?.lua;$HOME/repos/lang/lua/lib/?.lua;/usr/local/lib/lua/5.1/?.lua;/usr/local/share/lua/5.1/?.lua;./?.lua;/usr/local/share/lua/5.1/?/init.lua;/usr/local/lib/lua/5.1/?/init.lua;;"
+    export LUA_CPATH='/opt/boxen/homebrew/share/lua/5.1/luarocks/lib/lua/5.1/?.so;./?.so;/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so'
+    export PATH="/opt/boxen/homebrew/share/lua/5.1/luarocks/bin/:$PATH"
 
     # pbcopyで日本語(UTF-8)がコピーできるようになる
     #__CF_USER_TEXT_ENCODING=0x1F5:1:14    # 元の値

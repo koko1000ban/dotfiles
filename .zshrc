@@ -94,5 +94,9 @@ eval "$(direnv hook zsh)"
 [[ $EMACS = t ]] && unsetopt zle
 source `brew --prefix`/etc/profile.d/z.sh
 
+# Docker on mac
+eval "$(docker-machine env test-machine)"
+
 # autocorrect
 setopt nocorrectall;
+
